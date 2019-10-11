@@ -40,16 +40,19 @@ class AdoptionPage extends React.Component {
 
     return (
       <div>
-        <h1>Adopt a Pet!</h1>
-        <AdoptionPet currentPet={currentPet} />
-        <button type="button" disabled={position !== 0}>
-          Adopt Now!
-        </button>
+        <h1 className="AdoptH1">Adopt a Pet!</h1>
+        <div className="CurrentPet">
+          <AdoptionPet currentPet={currentPet} />
+          <button type="button" disabled={position !== 0}>
+            Adopt Now!
+          </button>
+        </div>
+
         <h2>Other Pets Awaiting Adoption</h2>
         <ul>{petList}</ul>
         <h2>Adoption Queue</h2>
-        <p>{queuePrompt}</p>
-        <ul>{queuePeople}</ul>
+        <p className="queue-prompt">{queuePrompt}</p>
+        <ul className="queue-people">{queuePeople}</ul>
       </div>
     );
   }
