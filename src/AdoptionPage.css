@@ -1,0 +1,42 @@
+.AdoptH1 {
+  font-size: 30px;
+}
+
+.AdoptionPet > img {
+  width: 75%;
+  margin-top: 10px;
+}
+
+.CurrentPet {
+  background-color: lightsteelblue;
+  padding: 20px;
+}
+
+.CurrentPet > button {
+  color: black;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li > img {
+  width: 50%;
+}
+
+li > span {
+  display: block;
+  margin: 10px;
+  font-style: italic;
+}
+
+.queue-prompt {
+  font-style: italic;
+  text-align: center;
+}
+
+.queue-people {
+  margin-bottom: 50px;
+}
