@@ -1,0 +1,49 @@
+.splash {
+  width: 75%;
+}
+
+.HomeH1 {
+  padding: 5px;
+  font-size: 30px;
+}
+
+.HomeHeader {
+  font-style: italic;
+  font-size: 18px;
+  padding: 10px;
+}
+
+p {
+  text-align: justify;
+}
+
+form {
+  margin-top: 20px;
+  background-color: lightsteelblue;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+legend {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+label,
+form > p {
+  display: block;
+  text-align: left;
+}
+
+input[type='text'] {
+  margin-top: 10px;
+  display: block;
+}
+
+button {
+  margin: 20px;
+  padding: 10px;
+  background-color: lightgreen;
+  font-weight: bold;
+  font-size: 14px;
+}

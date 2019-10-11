@@ -1,12 +1,12 @@
 import React from 'react';
 import AdoptionPet from './AdoptionPet';
 import PetThumbnail from './PetThumbnail';
+import './AdoptionPage.css';
 
 class AdoptionPage extends React.Component {
-  state = {loading: true}
+  state = { loading: true };
   componentDidMount() {
-    this.props.update()
-      .then(res => this.setState({loading: false}))
+    this.props.update().then(res => this.setState({ loading: false }));
   }
   
   render () {
@@ -14,44 +14,53 @@ class AdoptionPage extends React.Component {
       return <h1>Loading.....</h1>
     }
 
+  render() {
     const waitingPets = this.props.pets.slice(1);
     const currentPet = this.props.pets[0];
     const queue = this.props.queue;
     const user = this.props.user;
 
-    const petList = waitingPets.map(petData => <PetThumbnail 
-      key={petData.imageURL}
-      name={petData.name} 
-      imageURL={petData.imageURL}
-      imageDescription={petData.imageDescription}
-    />)
+    const petList = waitingPets.map(petData => (
+      <PetThumbnail
+        key={petData.imageURL}
+        name={petData.name}
+        imageURL={petData.imageURL}
+        imageDescription={petData.imageDescription}
+      />
+    ));
 
-    const queuePeople = queue.map(personData => <li key={personData.id}>{personData.name}</li>)
+    const queuePeople = queue.map(personData => (
+      <li key={personData.id}>{personData.name}</li>
+    ));
     const position = queue.findIndex(person => person.id === user.id);
 
-    let queuePrompt ='';
-    if (position === 0) queuePrompt = 'It\'s your turn to adopt a pet!';
-    if (position < 0) queuePrompt = 'You are not currently in line. Please return to the home page and submit the adoption form.'
-    if (position === 1) queuePrompt = 'There is 1 person before you in line.'
-    if (position > 1) queuePrompt = `There are ${position} people before you in line.`
+    let queuePrompt = '';
+    if (position === 0) queuePrompt = "It's your turn to adopt a pet!";
+    if (position < 0)
+      queuePrompt =
+        'You are not currently in line. Please return to the home page and submit the adoption form.';
+    if (position === 1) queuePrompt = 'There is 1 person before you in line.';
+    if (position > 1)
+      queuePrompt = `There are ${position} people before you in line.`;
 
     return (
       <div>
-        <h1>Adopt a Pet!</h1>
-        <AdoptionPet currentPet={currentPet} />
-        <button type="button" disabled={position !==0}>Adopt Now!</button>
+        <h1 className="AdoptH1">Adopt a Pet!</h1>
+        <div className="CurrentPet">
+          <AdoptionPet currentPet={currentPet} />
+          <button type="button" disabled={position !== 0}>
+            Adopt Now!
+          </button>
+        </div>
+
         <h2>Other Pets Awaiting Adoption</h2>
-        <ul>
-          {petList}
-        </ul>
+        <ul>{petList}</ul>
         <h2>Adoption Queue</h2>
-        <p>{queuePrompt}</p>
-        <ul>
-          {queuePeople}
-        </ul>
+        <p className="queue-prompt">{queuePrompt}</p>
+        <ul className="queue-people">{queuePeople}</ul>
       </div>
-    )
+    );
   }
 }
 
-export default AdoptionPage
+export default AdoptionPage;
