@@ -1,3 +1,3 @@
-const API_ENDPOINT = 'http://endpoint-here';
+const API_ENDPOINT = 'http://localhost:8000';
 
 export default { API_ENDPOINT };

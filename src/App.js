@@ -48,14 +48,14 @@ class App extends React.Component {
     ev.preventDefault();
     console.log('Form submitted!')
     //prevent default refresh
-    //read cats/dogs off of form submission
-    const petType = ev.target.petType.value;
-    console.log(petType);
-    const name = ev.target.name.value;
-    console.log(name);
-    const id = cuid();
-    console.log(id);
-    //read name off of form submission and issue a cuid
+    //read data off of form submission
+    const petType = ev.target.petType.value;    
+    const user = {
+      name: ev.target.name.value,
+      id: cuid()
+    }
+    
+  
     //fetch pets of appropriate type and add to state
     //enqueue user to appropriate endpoint
     //redirect to '/adopt'
@@ -64,19 +64,51 @@ class App extends React.Component {
   getPetList (petType) {
     //send fetch request to endpoint of appropriate petType
     //return json data
+    fetch(`API_ENDPOINT/${petType}`, {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    })
+      .then(res => {
+        const json = res.json()
+        if (!res.ok) {
+          throw new Error (json.error)
+        }
+        return json;
+      })
+      .catch(err => alert(err))
   }
 
-  adoptPet () {
+  adoptPet (petType) {
     //sends fetch request to endpoint of appropriate petType
-    //to dequeue the pet
+    //to dequeue the pet & user
+    fetch(`API_ENDPOINT/${petType}`, {
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'}
+    })
+      .then(res => {
+        const json = res.json()
+        if (!res.ok) {
+          throw new Error (json.error)
+        }
+        return json;
+      })
+      .catch(err => alert(err))
   }
 
-  enqueueUser () {
+  enqueueUser (petType, user) {
     //sends name and uuid to enqueue endpoint for users
-  }
-
-  dequeueUser () {
-    //sends request to dequeue user
+    fetch(`API_ENDPOINT/${petType}`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'}
+    })
+      .then(res => {
+        const json = res.json()
+        if (!res.ok) {
+          throw new Error (json.error)
+        }
+        return json;
+      })
+      .catch(err => alert(err))
   }
   
   checkQueue () {
