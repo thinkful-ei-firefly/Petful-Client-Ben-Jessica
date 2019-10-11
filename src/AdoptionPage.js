@@ -9,12 +9,11 @@ class AdoptionPage extends React.Component {
     this.props.update().then(res => this.setState({ loading: false }));
   }
   
-  render () {
+ 
+  render() {
     if (this.state.loading) {
       return <h1>Loading.....</h1>
     }
-
-  render() {
     const waitingPets = this.props.pets.slice(1);
     const currentPet = this.props.pets[0];
     const queue = this.props.queue;
