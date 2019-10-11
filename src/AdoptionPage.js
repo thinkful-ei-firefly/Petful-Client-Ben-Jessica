@@ -10,6 +10,9 @@ class AdoptionPage extends React.Component {
   }
   
   render () {
+    if (this.state.loading) {
+      return <h1>Loading.....</h1>
+    }
 
     const waitingPets = this.props.pets.slice(1);
     const currentPet = this.props.pets[0];
