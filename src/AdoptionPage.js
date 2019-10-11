@@ -64,7 +64,7 @@ class AdoptionPage extends React.Component {
         <div className="CurrentPet">
           <AdoptionPet currentPet={currentPet} />
           <button 
-            // disabled={position !== 0}
+            disabled={position !== 0}
             onClick={this.handleAdoptClick}
           >
             Adopt Now!
