@@ -5,31 +5,47 @@ import './AdoptionPage.css';
 
 class AdoptionPage extends React.Component {
   state = { loading: true };
+  static defaultProps = {}
+
   componentDidMount() {
     this.props.update().then(res => this.setState({ loading: false }));
+    this.timerId = setInterval(() => {
+      this.props.update()
+    }, 10000)
   }
-  
+
+  componentWillUnmount() {
+    clearInterval(this.timerId)
+  }
+
+  handleAdoptClick = () => {
+    this.props.adoptPet();
+    this.props.update();
+  }
  
   render() {
     if (this.state.loading) {
       return <h1>Loading.....</h1>
+    }
+    if (this.props.pets.length === 0) {
+      return <h2>There are no pets of this type currently available for adoption.</h2>
     }
     const waitingPets = this.props.pets.slice(1);
     const currentPet = this.props.pets[0];
     const queue = this.props.queue;
     const user = this.props.user;
 
-    const petList = waitingPets.map(petData => (
+    const petList = waitingPets.map((petData, index) => (
       <PetThumbnail
-        key={petData.imageURL}
+        key={index}
         name={petData.name}
         imageURL={petData.imageURL}
         imageDescription={petData.imageDescription}
       />
     ));
 
-    const queuePeople = queue.map(personData => (
-      <li key={personData.id}>{personData.name}</li>
+    const queuePeople = queue.map((personData, index) => (
+      <li key={index}>{personData.name}</li>
     ));
     const position = queue.findIndex(person => person.id === user.id);
 
@@ -47,7 +63,10 @@ class AdoptionPage extends React.Component {
         <h1 className="AdoptH1">Adopt a Pet!</h1>
         <div className="CurrentPet">
           <AdoptionPet currentPet={currentPet} />
-          <button type="button" disabled={position !== 0}>
+          <button 
+            // disabled={position !== 0}
+            onClick={this.handleAdoptClick}
+          >
             Adopt Now!
           </button>
         </div>

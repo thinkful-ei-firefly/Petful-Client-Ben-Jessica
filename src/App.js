@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Route, Router } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import HomePage from './HomePage';
 import AdoptionPage from './AdoptionPage';
 import cuid from 'cuid';
@@ -20,7 +20,6 @@ class App extends React.Component {
 
   handleFormSubmit = async (ev) => {
     ev.preventDefault();
-    console.log('Form submitted!')
     //prevent default refresh
     //read data off of form submission
     const petType = ev.target.petType.value;
@@ -60,24 +59,23 @@ class App extends React.Component {
       }
       return json;
     })
-      .catch(err => alert(err))
+      .catch(err => console.log(err))
   }
 
-  adoptPet (petType) {
+  adoptPet = (petType) => {
     //sends fetch request to endpoint of appropriate petType
     //to dequeue the pet & user
-    return fetch(`${API_ENDPOINT}/${petType}`, {
+    return fetch(`${API_ENDPOINT}/${this.state.petType}`, {
       method: 'DELETE',
       headers: {'Content-Type': 'application/json'}
     })
       .then(res => {
-        const json = res.json()
         if (!res.ok) {
-          throw new Error (json.error)
+          throw new Error (res.json().error)
         }
-        return json;
+        return res.json();
       })
-      .catch(err => alert(err))
+      .catch(err => console.log(err))
   }
 
   enqueueUser (petType, user) {
@@ -94,7 +92,7 @@ class App extends React.Component {
         }
         return json;
       })
-      .catch(err => alert(err))
+      .catch(err => console.log(err))
   }
   
   checkQueue (petType) {
@@ -110,7 +108,7 @@ class App extends React.Component {
       }
       return json;
     })
-      .catch(err => alert(err))    
+      .catch(err => console.log(err))    
   }
 
   updateAdoptionPage = async () => {
@@ -139,6 +137,7 @@ class App extends React.Component {
             queue={this.state.queue} 
             user={this.state.user} 
             update={this.updateAdoptionPage}
+            adoptPet={this.adoptPet}
           />} 
         />
 
