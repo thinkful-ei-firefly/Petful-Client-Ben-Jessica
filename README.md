@@ -1,4 +1,4 @@
-# Petful API
+# Petful Client
 
 Created by: [Jessica Doyle](https://github.com/jedoyle6) and [Ben Rosen](https://github.com/tymbalodeon)
 
